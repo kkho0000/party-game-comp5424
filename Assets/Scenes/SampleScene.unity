@@ -9186,7 +9186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleportDistance: 400
   teleportSpeed: 600
-  teleportMarkerPrefab: {fileID: 4456254186854007064, guid: 1e892d4f5da9c6c47992037c909da726, type: 3}
+  teleportMarkerPrefab: {fileID: 4035951546026506213, guid: 0c3b430a50344e14eb71debe29052190, type: 3}
   teleportParticleSystem: {fileID: 1378603490}
   engineParticleSystem: {fileID: 1849259136}
   maxFOV: 90
