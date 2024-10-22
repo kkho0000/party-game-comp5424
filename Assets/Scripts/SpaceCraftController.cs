@@ -45,9 +45,18 @@ public class SpaceCraftController : MonoBehaviour
     {
         if (!isInObservationMode) // 如果不是观察模式，飞船的方向跟随摄像头
         {
-            Vector3 targetRotation = mainCamera.transform.forward;
-            Quaternion rotation = Quaternion.LookRotation(targetRotation);
-            trans.rotation = Quaternion.RotateTowards(trans.rotation, rotation, angularSpeed * Time.deltaTime);
+            Vector3 targetDirection = mainCamera.transform.forward;
+            Quaternion targetRotationXY = Quaternion.LookRotation(targetDirection, Vector3.up); // 保持在X-Y平面的旋转
+
+            // 获取当前旋转在Z轴上的角度
+            float currentRotationZ = trans.eulerAngles.z;
+            // 创建一个新的Quaternion，它只在Z轴上旋转
+            Quaternion zRotation = Quaternion.Euler(0, 0, currentRotationZ);
+            // 将Z轴旋转与X-Y平面旋转结合
+            Quaternion finalRotation = targetRotationXY * zRotation;
+
+            // 平滑过渡到最终旋转
+            trans.rotation = Quaternion.RotateTowards(trans.rotation, finalRotation, angularSpeed * Time.deltaTime);
         }
 
         // 使用Rigidbody的速度进行移动
