@@ -37,6 +37,7 @@ public class SpaceCraftController : MonoBehaviour
         HandleMovement();
         HandleTeleportation();
         HandleObservationMode(); // 添加处理观察模式的逻辑
+        HandleStopSpin();        // 处理停止自旋的逻辑
     }
 
     // 根据摄像头的前方方向处理飞船的移动
@@ -93,7 +94,17 @@ public class SpaceCraftController : MonoBehaviour
         // 日志记录碰撞的物体名称，便于调试
         Debug.Log("与碰撞的物体: " + collision.gameObject.name);
 
-        // 可以在此处添加发生碰撞时的逻辑
-        // 比如：停止移动，触发爆炸效果等
+        // 碰撞时允许飞船自旋，不重置angularVelocity
+    }
+
+    // 处理停止自旋的逻辑
+    private void HandleStopSpin()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            // 当按下空格键时停止飞船的自旋
+            rb.angularVelocity = Vector3.zero;
+            // Debug.Log("飞船自旋已停止");
+        }
     }
 }
