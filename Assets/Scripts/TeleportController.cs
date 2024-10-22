@@ -21,6 +21,7 @@ public class TeleportController : MonoBehaviour
     public float shakeIntensity = 0.015f;
     public float shakeDuration = 0.8f;
     private float currentShakeDuration = 0f;
+    public LayerMask obstacleLayer;  // 定义障碍物层，用于射线检测
 
     private void Start()
     {
@@ -28,14 +29,19 @@ public class TeleportController : MonoBehaviour
         teleportMarker.SetActive(false);
 
         mainCamera = Camera.main;
-
         cameraInitialLocalPosition = mainCamera.transform.localPosition;
 
+        // 检查粒子系统是否赋值
         if (teleportParticleSystem != null)
         {
             teleportParticleSystem.Stop();
+        }
+        if (engineParticleSystem != null)
+        {
             engineParticleSystem.Stop();
         }
+
+        obstacleLayer = LayerMask.GetMask("Obstacle");
     }
 
     public void Initialize(Transform craftTransform)
@@ -47,9 +53,19 @@ public class TeleportController : MonoBehaviour
     {
         if (teleportMode && !isTeleporting)
         {
+            // 计算传送的目标位置
             teleportTarget = craftTransform.position + craftTransform.forward * teleportDistance;
-            teleportMarker.transform.position = teleportTarget;
 
+            // 检测从当前位置到传送目标之间是否有障碍物
+            RaycastHit hit;
+            if (Physics.Raycast(craftTransform.position, craftTransform.forward, out hit, teleportDistance, obstacleLayer))
+            {
+                // 如果检测到障碍物，则将传送目标设置为障碍物前方
+                teleportTarget = hit.point - craftTransform.forward * 1.0f; // 让目标位置稍微远离障碍物，确保不会直接贴近
+            }
+
+            // 更新传送标记的位置和旋转
+            teleportMarker.transform.position = teleportTarget;
             teleportMarker.transform.rotation = craftTransform.rotation;
         }
     }
@@ -73,12 +89,14 @@ public class TeleportController : MonoBehaviour
             teleportMarker.SetActive(false);
 
             StartCoroutine(ApplyWideAngleEffect());
-
             currentShakeDuration = shakeDuration;
 
             if (teleportParticleSystem != null)
             {
                 teleportParticleSystem.Play();
+            }
+            if (engineParticleSystem != null)
+            {
                 engineParticleSystem.Play();
             }
         }
@@ -98,6 +116,9 @@ public class TeleportController : MonoBehaviour
                 if (teleportParticleSystem != null)
                 {
                     teleportParticleSystem.Stop();
+                }
+                if (engineParticleSystem != null)
+                {
                     engineParticleSystem.Stop();
                 }
             }
@@ -120,6 +141,9 @@ public class TeleportController : MonoBehaviour
             if (teleportParticleSystem != null)
             {
                 teleportParticleSystem.Stop();
+            }
+            if (engineParticleSystem != null)
+            {
                 engineParticleSystem.Stop();
             }
         }

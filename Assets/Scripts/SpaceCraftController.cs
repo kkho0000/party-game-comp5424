@@ -9,22 +9,29 @@ public class SpaceCraftController : MonoBehaviour
     private Transform trans;
     private Camera mainCamera;
     private TeleportController teleportController;
+    private Rigidbody rb;
     private bool isInObservationMode = false; // 用于切换观察模式
 
-    // Initialization
+    // 初始化
     private void Awake()
     {
         trans = GetComponent<Transform>();
-        mainCamera = trans.Find("XR Origin (VR)/Camera Offset/Main Camera").GetComponent<Camera>();
+        mainCamera = Camera.main;
         teleportController = GetComponent<TeleportController>();
+        rb = GetComponent<Rigidbody>();
     }
 
     private void Start()
     {
-        teleportController.Initialize(trans);  // Initialize teleport controller
+        teleportController.Initialize(trans);
+
+        // 设置Rigidbody的属性以处理碰撞
+        rb.isKinematic = false;  // 允许物理交互
+        rb.useGravity = false;   // 禁用重力（根据需要）
+        rb.collisionDetectionMode = CollisionDetectionMode.Continuous; // 使用连续碰撞检测
     }
 
-    // Update is called once per frame
+    // 每帧更新一次
     void Update()
     {
         HandleMovement();
@@ -32,7 +39,7 @@ public class SpaceCraftController : MonoBehaviour
         HandleObservationMode(); // 添加处理观察模式的逻辑
     }
 
-    // Handle the spacecraft movement based on the camera's forward direction
+    // 根据摄像头的前方方向处理飞船的移动
     private void HandleMovement()
     {
         if (!isInObservationMode) // 如果不是观察模式，飞船的方向跟随摄像头
@@ -42,11 +49,11 @@ public class SpaceCraftController : MonoBehaviour
             trans.rotation = Quaternion.RotateTowards(trans.rotation, rotation, angularSpeed * Time.deltaTime);
         }
 
-        // 无论是否在观察模式下，飞船都继续向前移动
-        trans.Translate(Vector3.forward * speed * Time.deltaTime);
+        // 使用Rigidbody的速度进行移动
+        rb.velocity = trans.forward * speed;
     }
 
-    // Handle teleportation logic
+    // 处理传送逻辑
     private void HandleTeleportation()
     {
         if (Input.GetKeyDown(KeyCode.R))
@@ -66,7 +73,7 @@ public class SpaceCraftController : MonoBehaviour
             teleportController.CancelTeleport();
         }
 
-        // Update teleport marker and move towards the teleport target, if applicable
+        // 更新传送标记并向传送目标移动（如果适用）
         teleportController.UpdateTeleportMarkerPosition();
         teleportController.MoveTowardsTeleportTarget();
     }
@@ -78,5 +85,15 @@ public class SpaceCraftController : MonoBehaviour
         {
             isInObservationMode = !isInObservationMode; // 切换观察模式状态
         }
+    }
+
+    // 处理与场景物体的碰撞
+    private void OnCollisionEnter(Collision collision)
+    {
+        // 日志记录碰撞的物体名称，便于调试
+        Debug.Log("与碰撞的物体: " + collision.gameObject.name);
+
+        // 可以在此处添加发生碰撞时的逻辑
+        // 比如：停止移动，触发爆炸效果等
     }
 }
