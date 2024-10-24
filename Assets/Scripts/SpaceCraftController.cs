@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
-using UnityEngine.UI;
 
 public class SpaceCraftController : MonoBehaviour
 {
@@ -16,14 +14,6 @@ public class SpaceCraftController : MonoBehaviour
     private TeleportController teleportController;
     private Rigidbody rb;
     private bool isInObservationMode = false; // 用于切换观察模式
-
-    //能量球
-    public Image[] energySlots; // Assign the energy slot images in the Inspector
-    public Sprite filledSprite; // Assign the filled sprite in the Inspector
-    public Sprite emptySprite; // Assign the empty sprite in the Inspector
-
-    private int currentEnergy = 0;
-    private int maxEnergy = 3;
 
     private UnityEngine.XR.InputDevice headset;
 
@@ -53,15 +43,6 @@ public class SpaceCraftController : MonoBehaviour
         HandleTeleportation();
         HandleObservationMode(); // 添加处理观察模式的逻辑
         HandleStopSpin();        // 处理停止自旋的逻辑
-
-        var leftHandedControllers = new List<UnityEngine.XR.InputDevice>();
-        var desiredCharacteristics = UnityEngine.XR.InputDeviceCharacteristics.HeldInHand | UnityEngine.XR.InputDeviceCharacteristics.Left | UnityEngine.XR.InputDeviceCharacteristics.Controller;
-        UnityEngine.XR.InputDevices.GetDevicesWithCharacteristics(desiredCharacteristics, leftHandedControllers);
-
-        foreach (var device in leftHandedControllers)
-        {
-            Debug.Log(string.Format("Device name '{0}' has characteristics '{1}'", device.name, device.characteristics.ToString()));
-        }
     }
 
     // 根据摄像头的前方方向处理飞船的移动
@@ -73,7 +54,7 @@ public class SpaceCraftController : MonoBehaviour
             Quaternion targetRotationXY = Quaternion.LookRotation(targetDirection, Vector3.up);
             Quaternion zRotation = Quaternion.Euler(0, 0, 90);
             Quaternion finalRotation = targetRotationXY * zRotation;
-            if (Math.Abs(targetDirection.x) >= 0.15 || Math.Abs(targetDirection.y) >= 0.15)
+            if (Math.Abs(targetDirection.x) >= 0.08 || Math.Abs(targetDirection.y) >= 0.08)
             {
                 trans.rotation = Quaternion.RotateTowards(trans.rotation, finalRotation, angularSpeed_x * Time.deltaTime);
             }
@@ -124,20 +105,6 @@ public class SpaceCraftController : MonoBehaviour
     // 处理与场景物体的碰撞
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("EnergyOrb"))
-        {
-            CollectEnergyOrb();
-            Destroy(collision.gameObject); // 销毁金币
-            //score += 100; // 增加分数
-            //UpdateScoreUI();
-        }
-        else if (collision.gameObject.CompareTag("Obstacle"))
-        {
-            //Destroy(collision.gameObject); // 销毁敌人
-            //life -= 1; // 减少分数
-            //UpdateLifeUI();
-        }
-
         // 日志记录碰撞的物体名称，便于调试
         Debug.Log("与碰撞的物体: " + collision.gameObject.name);
 
@@ -154,19 +121,4 @@ public class SpaceCraftController : MonoBehaviour
             // Debug.Log("飞船自旋已停止");
         }
     }
-
-    private void CollectEnergyOrb()
-    {
-        if (currentEnergy < maxEnergy)
-        {
-            currentEnergy++;
-            UpdateEnergyUI();
-        }
-    }
-
-    private void UpdateEnergyUI()
-    {
-       
-    }
-
 }
