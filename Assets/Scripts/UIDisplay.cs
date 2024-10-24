@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class UIDisplay : MonoBehaviour
@@ -20,11 +21,11 @@ public class UIDisplay : MonoBehaviour
         UpdateSpeed();  // 更新飞船速度
 
         if (timerRunning)
-        {
-            UpdateTimer(Time.deltaTime);
-        }
+    {
+        UpdateTimer(Time.deltaTime);
     }
-
+    }
+     
     void UpdateSpeed()
     {
         float speed = spaceshipRigidbody.velocity.magnitude;  // 获取飞船当前速度的大小

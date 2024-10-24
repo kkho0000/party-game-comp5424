@@ -18,7 +18,7 @@ public class SpaceCraftController : MonoBehaviour
     private bool isInObservationMode = false; // 用于切换观察模式
 
     //能量球
-    public Sprite[] energySlots; // Assign the energy slot images in the Inspector
+    public Image[] energySlots; // Assign the energy slot images in the Inspector
     public Sprite filledSprite; // Assign the filled sprite in the Inspector
     public Sprite emptySprite; // Assign the empty sprite in the Inspector
 
@@ -54,14 +54,7 @@ public class SpaceCraftController : MonoBehaviour
         HandleObservationMode(); // 添加处理观察模式的逻辑
         HandleStopSpin();        // 处理停止自旋的逻辑
 
-        var leftHandedControllers = new List<UnityEngine.XR.InputDevice>();
-        var desiredCharacteristics = UnityEngine.XR.InputDeviceCharacteristics.HeldInHand | UnityEngine.XR.InputDeviceCharacteristics.Left | UnityEngine.XR.InputDeviceCharacteristics.Controller;
-        UnityEngine.XR.InputDevices.GetDevicesWithCharacteristics(desiredCharacteristics, leftHandedControllers);
-
-        foreach (var device in leftHandedControllers)
-        {
-            Debug.Log(string.Format("Device name '{0}' has characteristics '{1}'", device.name, device.characteristics.ToString()));
-        }
+        
     }
 
     // 根据摄像头的前方方向处理飞船的移动
@@ -137,6 +130,7 @@ public class SpaceCraftController : MonoBehaviour
             //life -= 1; // 减少分数
             //UpdateLifeUI();
         }
+
         // 日志记录碰撞的物体名称，便于调试
         Debug.Log("与碰撞的物体: " + collision.gameObject.name);
 
@@ -162,19 +156,10 @@ public class SpaceCraftController : MonoBehaviour
             UpdateEnergyUI();
         }
     }
-    //更新能量UI
+
     private void UpdateEnergyUI()
     {
-        for (int i = 0; i < energySlots.Length; i++)
-        {
-            if (i < currentEnergy)
-            {
-                energySlots[i] = filledSprite; // Set to filled sprite
-            }
-            else
-            {
-                energySlots[i] = emptySprite; // Set to empty sprite
-            }
-        }
+       
     }
+
 }
