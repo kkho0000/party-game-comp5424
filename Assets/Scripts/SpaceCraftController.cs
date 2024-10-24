@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
-using UnityEngine.UI;
 
 public class SpaceCraftController : MonoBehaviour
 {
@@ -80,15 +78,6 @@ public class SpaceCraftController : MonoBehaviour
         HandleTeleportation();
         HandleObservationMode(); // 添加处理观察模式的逻辑
         HandleStopSpin();        // 处理停止自旋的逻辑
-
-        var leftHandedControllers = new List<UnityEngine.XR.InputDevice>();
-        var desiredCharacteristics = UnityEngine.XR.InputDeviceCharacteristics.HeldInHand | UnityEngine.XR.InputDeviceCharacteristics.Left | UnityEngine.XR.InputDeviceCharacteristics.Controller;
-        UnityEngine.XR.InputDevices.GetDevicesWithCharacteristics(desiredCharacteristics, leftHandedControllers);
-
-        foreach (var device in leftHandedControllers)
-        {
-            Debug.Log(string.Format("Device name '{0}' has characteristics '{1}'", device.name, device.characteristics.ToString()));
-        }
     }
 
     // 根据摄像头的前方方向处理飞船的移动
@@ -100,7 +89,7 @@ public class SpaceCraftController : MonoBehaviour
             Quaternion targetRotationXY = Quaternion.LookRotation(targetDirection, Vector3.up);
             Quaternion zRotation = Quaternion.Euler(0, 0, 90);
             Quaternion finalRotation = targetRotationXY * zRotation;
-            if (Math.Abs(targetDirection.x) >= 0.15 || Math.Abs(targetDirection.y) >= 0.15)
+            if (Math.Abs(targetDirection.x) >= 0.08 || Math.Abs(targetDirection.y) >= 0.08)
             {
                 trans.rotation = Quaternion.RotateTowards(trans.rotation, finalRotation, angularSpeed_x * Time.deltaTime);
             }
