@@ -18,12 +18,17 @@ public class SpaceCraftController : MonoBehaviour
     private bool isInObservationMode = false; // 用于切换观察模式
 
     //能量球
-    public Image[] energySlots; // Assign the energy slot images in the Inspector
     public Sprite filledSprite; // Assign the filled sprite in the Inspector
     public Sprite emptySprite; // Assign the empty sprite in the Inspector
-
+    public SpriteRenderer[] spriteRenderer = new SpriteRenderer[3];
+    public GameObject[] emptySpritecontainer = new GameObject[3];
     private int currentEnergy = 0;
     private int maxEnergy = 3;
+
+    //视角锁
+    public Sprite lockstatus;
+    public Sprite unlockstatus;
+    public SpriteRenderer lockSpriteRenderer;
 
     private UnityEngine.XR.InputDevice headset;
 
@@ -44,6 +49,28 @@ public class SpaceCraftController : MonoBehaviour
         rb.isKinematic = false;  // 允许物理交互
         rb.useGravity = false;   // 禁用重力（根据需要）
         rb.collisionDetectionMode = CollisionDetectionMode.Continuous; // 使用连续碰撞检测
+
+        //初始化能量槽
+        if (emptySprite != null)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (emptySpritecontainer[i] != null)
+                {
+                    spriteRenderer[i] = emptySpritecontainer[i].GetComponent<SpriteRenderer>();
+                    if (spriteRenderer[i] == null)
+                    {
+                        Debug.LogWarning("SpriteRenderer component not found on object: " + emptySpritecontainer[i].name);
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("emptySprite[" + i + "] is null.");
+                }
+            }
+        }
+        //视角状态锁
+        lockSpriteRenderer.sprite = lockstatus;
     }
 
     // 每帧更新一次
@@ -98,7 +125,16 @@ public class SpaceCraftController : MonoBehaviour
             }
             else if (!teleportController.IsTeleporting())
             {
-                teleportController.StartTeleport();
+                if (currentEnergy == 3)
+                {
+                    teleportController.StartTeleport();
+                }
+                else
+                {
+                    teleportController.CancelTeleport();
+                }
+                clearEnergyOrb();
+                clearEnergyUI();
             }
         }
 
@@ -118,6 +154,7 @@ public class SpaceCraftController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.O))
         {
             isInObservationMode = !isInObservationMode; // 切换观察模式状态
+            lockSpriteRenderer.sprite = isInObservationMode ? unlockstatus : lockstatus; // 切换视角锁状态
         }
     }
 
@@ -127,15 +164,12 @@ public class SpaceCraftController : MonoBehaviour
         if (collision.gameObject.CompareTag("EnergyOrb"))
         {
             CollectEnergyOrb();
-            Destroy(collision.gameObject); // 销毁金币
-            //score += 100; // 增加分数
-            //UpdateScoreUI();
+            Destroy(collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("Obstacle"))
         {
-            //Destroy(collision.gameObject); // 销毁敌人
-            //life -= 1; // 减少分数
-            //UpdateLifeUI();
+            Destroy(collision.gameObject); // 销毁敌人
+            reduceEnergyOrb();
         }
 
         // 日志记录碰撞的物体名称，便于调试
@@ -160,13 +194,47 @@ public class SpaceCraftController : MonoBehaviour
         if (currentEnergy < maxEnergy)
         {
             currentEnergy++;
-            UpdateEnergyUI();
+            UpdateEnergyUI(currentEnergy);
         }
     }
 
-    private void UpdateEnergyUI()
+    private void UpdateEnergyUI(int currentEnergy)
     {
-       
+        if (spriteRenderer != null && filledSprite != null)
+        {
+            spriteRenderer[currentEnergy - 1].sprite = filledSprite;
+            Debug.Log("Energy collected: " + currentEnergy);
+        }
+        else
+        {
+            Debug.LogWarning("SpriteRenderer or filledSprite is not set.");
+        }
     }
 
+    private void clearEnergyOrb()
+    {
+        currentEnergy = 0;
+    }
+
+    private void clearEnergyUI()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            spriteRenderer[i].sprite = emptySprite;
+        }
+        currentEnergy = 0;
+    }
+
+    private void reduceEnergyOrb()
+    {
+        if (currentEnergy == 0)
+        {
+            return;
+        }
+        else
+        {
+            currentEnergy--;
+            spriteRenderer[currentEnergy].sprite = emptySprite;
+        }
+    }
 }
