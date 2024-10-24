@@ -30,6 +30,7 @@ public class UIDisplay : MonoBehaviour
     {
         float speed = spaceshipRigidbody.velocity.magnitude;  // 获取飞船当前速度的大小
         speedText.text = speed.ToString("F1") + " m/s";  // 更新 UI Text 显示当前速度
+        Debug.Log(speed);
     }
     void StartTimer()
     {

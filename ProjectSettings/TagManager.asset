@@ -6,7 +6,8 @@ TagManager:
   tags:
   - Obstacle
   - EnergyOrb
-  - Button
+  - ResetButton
+  - BackButton
   layers:
   - Default
   - TransparentFX

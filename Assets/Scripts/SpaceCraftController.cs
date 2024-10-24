@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.XR;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class SpaceCraftController : MonoBehaviour
 {
@@ -29,6 +32,7 @@ public class SpaceCraftController : MonoBehaviour
     public SpriteRenderer lockSpriteRenderer;
 
     private UnityEngine.XR.InputDevice headset;
+    public InputDevice rightHandController;
 
     // 初始化
     private void Awake()
@@ -69,6 +73,7 @@ public class SpaceCraftController : MonoBehaviour
         }
         //视角状态锁
         lockSpriteRenderer.sprite = lockstatus;
+
     }
 
     // 每帧更新一次
@@ -103,10 +108,10 @@ public class SpaceCraftController : MonoBehaviour
         rb.velocity = trans.forward * speed;
     }
 
-    // 处理传送逻辑
+    // 处理传送逻辑，按两次A键传送，一次A一次B取消传送
     private void HandleTeleportation()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if(Input.GetKeyDown(KeyCode.R))
         {
             if (!teleportController.IsInTeleportMode())
             {
@@ -127,7 +132,7 @@ public class SpaceCraftController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Q) && teleportController.IsInTeleportMode())
+        if(Input.GetKeyDown(KeyCode.Q) && teleportController.IsInTeleportMode())
         {
             teleportController.CancelTeleport();
         }
@@ -137,7 +142,13 @@ public class SpaceCraftController : MonoBehaviour
         teleportController.MoveTowardsTeleportTarget();
     }
 
-    // 处理观察模式的切换
+    //为了配合按钮调用HandleTeleportation()函数
+    public void TeleportSpaceship()
+    {
+        HandleTeleportation();
+    }
+
+    // 处理观察模式的切换,按下手柄上的X键切换（键盘O键）
     private void HandleObservationMode()
     {
         if (Input.GetKeyDown(KeyCode.O))
@@ -167,7 +178,7 @@ public class SpaceCraftController : MonoBehaviour
         // 碰撞时允许飞船自旋，不重置angularVelocity
     }
 
-    // 处理停止自旋的逻辑
+    // 处理停止自旋的逻辑，按下手柄Y键/键盘空格键停止自旋
     private void HandleStopSpin()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -176,6 +187,12 @@ public class SpaceCraftController : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
             // Debug.Log("飞船自旋已停止");
         }
+    }
+    //为了配合按钮调用StopSpin()函数
+    public void ResetSpaceship()
+    {
+        HandleStopSpin();
+        Debug.Log("飞船自旋已停止");
     }
 
     private void CollectEnergyOrb()
@@ -227,3 +244,4 @@ public class SpaceCraftController : MonoBehaviour
         }
     }
 }
+
