@@ -1,0 +1,54 @@
+diff a/Assets/Scripts/JumptoPlay.cs b/Assets/Scripts/JumptoPlay.cs	(rejected hunks)
+@@ -2,42 +2,23 @@
+ using System.Collections.Generic;
+ using UnityEngine;
+ using UnityEngine.SceneManagement;
+-using UnityEngine.UI;
+ 
+ public class JumptoPlay : MonoBehaviour
+ {
+-    public Slider progressBar; // ����������
+-
+-    // ���������Լ����³���
+-    public void LoadScene(string sceneName)
++    // Start is called before the first frame update
++    void Start()
+     {
+-        StartCoroutine(LoadSceneAsync(sceneName));
++        
+     }
+ 
+-
+-    // �첽���س���
+-    private IEnumerator LoadSceneAsync(string sceneName)
++    // Update is called once per frame
++    void Update()
+     {
+-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+-        operation.allowSceneActivation = false; // ��ֹ�����Զ�����
+-
+-        // ������δ�������ʱ
+-        while (!operation.isDone)
+-        {
+-            // ���½�����ֵ
+-            // ע�⣺operation.progress ��Χ�� 0 �� 0.9
+-            float progress = Mathf.Clamp01(operation.progress / 0.9f);
+-            progressBar.value = progress;
+-
+-            // �����ȴﵽ 0.9�������������
+-            if (operation.progress >= 0.9f)
+-            {
+-                // �ȴ�һ��ʱ����ټ����
+-                //yield return new WaitForSeconds(1f); // ���Զ���ȴ�ʱ��
+-                operation.allowSceneActivation = true; // �����
+-            }
++        
++    }
+ 
+-            yield return null; // �ȴ���һ֡
+-        }
++    public void jump()
++    {
++        SceneManager.LoadScene(1);
+     }
+ }
