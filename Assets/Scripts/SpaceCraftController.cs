@@ -69,6 +69,20 @@ public class SpaceCraftController : MonoBehaviour
         }
         //视角状态锁
         lockSpriteRenderer.sprite = lockstatus;
+
+        StartCoroutine(DelayStart());
+    }
+
+    private IEnumerator DelayStart()
+    {
+        // 禁用 Update 方法的逻辑
+        enabled = false;
+
+        // 等待 4 秒
+        yield return new WaitForSeconds(3.5f);
+
+        // 启用 Update 方法的逻辑
+        enabled = true;
     }
 
     // 每帧更新一次
