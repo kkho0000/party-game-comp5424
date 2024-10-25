@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using TMPro;
 
 public class RankingManager : MonoBehaviour
 {
     public List<CollisionCounter> planes = new List<CollisionCounter>();
-
+    public TMP_Text rankingnum;
     private List<PlaneInfo> planeInfos = new List<PlaneInfo>();
 
 private void Start()
@@ -33,6 +34,7 @@ private void Start()
         // Display the ranking
         for (int i = 0; i < planeInfos.Count; i++)
         {
+            rankingnum.text =(i + 1).ToString();
             Debug.Log("Rank " + (i + 1) + ": " + planeInfos[i].playerName);
         }
     }
