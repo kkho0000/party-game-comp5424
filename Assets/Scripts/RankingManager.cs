@@ -6,10 +6,16 @@ using System;
 public class RankingManager : MonoBehaviour
 {
     public List<CollisionCounter> planes = new List<CollisionCounter>();
-
+    public string rankingText;
     private List<PlaneInfo> planeInfos = new List<PlaneInfo>();
+    public RankingUIManager rankingUIManager;
 
-private void Start()
+    public List<PlaneInfo> getPlanInfos()
+    {
+        return planeInfos; 
+    }
+
+    private void Start()
     {
         planes.AddRange(FindObjectsOfType<CollisionCounter>());
         Debug.Log("游戏开始时执行Planes Count: " + planes.Count); // 添加这一行
@@ -30,11 +36,13 @@ private void Start()
         // Sort the planeInfos list based on collisionCount and timer
         planeInfos.Sort(new RankingComparator());
 
+        rankingText = "Top";
         // Display the ranking
         for (int i = 0; i < planeInfos.Count; i++)
         {
-            Debug.Log("Rank " + (i + 1) + ": " + planeInfos[i].playerName);
+            rankingText += (i + 1) + ":" + planeInfos[i].playerName + "\n";
         }
+        rankingUIManager.UpdateRankingText(rankingText);
     }
 
         public void UpdateRankingAfterCollision()

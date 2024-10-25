@@ -40,10 +40,10 @@ public class CollisionCounter : MonoBehaviour
                 rankingManager.UpdateRankingAfterCollision();
             }
             
-            if (collisionCount >= 51)
+            if (collisionCount ==1)
             {
                 // 跳转到结算场景，修改SceneA为结算场景的路由
-                // SceneManager.LoadScene("SceneA"); 
+                SceneManager.LoadScene(2); 
             }
 
         }
