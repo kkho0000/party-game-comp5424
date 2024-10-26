@@ -202,11 +202,9 @@ public class SpaceCraftController : MonoBehaviour
     //HandleObservationMode的手柄版本
     public void SwitchObservationMode()
     {
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            isInObservationMode = !isInObservationMode;
-            lockSpriteRenderer.sprite = isInObservationMode ? unlockstatus : lockstatus;
-        }
+        isInObservationMode = !isInObservationMode;
+        lockSpriteRenderer.sprite = isInObservationMode ? unlockstatus : lockstatus;
+        
     }
 
     //碰撞检测

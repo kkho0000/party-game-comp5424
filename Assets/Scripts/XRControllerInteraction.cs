@@ -37,7 +37,7 @@ public class XRControllerInteraction : MonoBehaviour
         movementReset.performed += ResetSpaceship;
 
         //使用左手手柄Y键 实现观察模式（解锁）
-        observeMode = testActionAsset.FindAction("ObeserveMode");
+        observeMode = testActionAsset.FindAction("ObserveMode");
         observeMode.started += SwitchMode;
     }
 
