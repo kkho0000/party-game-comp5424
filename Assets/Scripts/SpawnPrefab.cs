@@ -5,11 +5,12 @@ public class SpawnPrefabs : MonoBehaviour
 {
     public GameObject[] obstaclePrefab;
     public GameObject energyOrbPrefab;
-    public int spawnGap_Obstacle=100;//障碍生成间隔
+    public int spawnGap_Obstacle=150;//障碍生成间隔
     public int spawnGap_EnergyOrb = 70;//能量球生成间隔
     public int spawnCount_Obstacle=7;//障碍生成数量
     public int spawnCount_EnergyOrb = 20;//能量球生成数量
-    public int spawnRange = 60;//生成范围
+    public int spawnRangevertical = 60;//横向生成范围
+    public int spawnRangehorizontal = 10;//纵向生成范围
 
     void Start()
     {
@@ -23,8 +24,9 @@ public class SpawnPrefabs : MonoBehaviour
         {
             Vector3 direction = originalRotation * Vector3.right;
             Vector3 spawnPosition = originalPosition + direction * i * spawnGap_Obstacle;//生成间隔
-            spawnPosition.x += Random.Range(-spawnRange, spawnRange+1);//生成范围
-            spawnPosition.z += Random.Range(-spawnRange, spawnRange+1);
+            spawnPosition.x += Random.Range(-spawnRangevertical, spawnRangevertical + 1);//横向生成范围
+            spawnPosition.z += Random.Range(-spawnRangevertical, spawnRangevertical + 1);
+            spawnPosition.y += Random.Range(-spawnRangehorizontal, spawnRangehorizontal + 1);//纵向生成范围
             Instantiate(obstaclePrefab[i% obstaclePrefab.Length], spawnPosition, Quaternion.identity);
             
         }
@@ -32,8 +34,9 @@ public class SpawnPrefabs : MonoBehaviour
         {
             Vector3 direction = originalRotation * Vector3.right;
             Vector3 spawnPosition = originalPosition + direction * i * spawnGap_EnergyOrb;//生成间隔
-            spawnPosition.x += Random.Range(-spawnRange, spawnRange + 1);//生成范围
-            spawnPosition.z += Random.Range(-spawnRange, spawnRange + 1);
+            spawnPosition.x += Random.Range(-spawnRangevertical, spawnRangevertical + 1);//生成范围
+            spawnPosition.z += Random.Range(-spawnRangevertical, spawnRangevertical + 1);
+            spawnPosition.y += Random.Range(-spawnRangehorizontal, spawnRangehorizontal + 1);//纵向生成范围
             Instantiate(energyOrbPrefab, spawnPosition, Quaternion.identity);
 
         }

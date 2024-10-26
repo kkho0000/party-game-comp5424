@@ -14,12 +14,10 @@ public class XRControllerInteraction : MonoBehaviour
     private InputAction observeMode;
 
     private SpaceCraftController spaceCraftController;
-    private JumptoPlay jumptoPlay;
 
     void Awake()
     {
         spaceCraftController = FindObjectOfType<SpaceCraftController>();
-        jumptoPlay = FindObjectOfType<JumptoPlay>();
     }
 
     void Start()

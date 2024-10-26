@@ -14,7 +14,7 @@ public class UIDisplay : MonoBehaviour
     private bool timerRunning = false; // 计时器是否正在运行
     void Start()
     {
-        StartTimer();
+        Invoke("StartTimer", 3f);
     }
     void Update()
     {

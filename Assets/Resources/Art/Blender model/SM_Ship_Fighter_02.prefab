@@ -4903,15 +4903,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1f00c02c62a9e8940a43fad0bc1eb35f, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 5ce1dd3cb3da4984891e64abfd28c45f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.41568628}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 15.57, y: 5.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &383438424965467249
@@ -5146,7 +5146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78c1b321e94c5f84ea6828728b747bdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 2518337969899158142}
+  testActionAsset: {fileID: 0}
 --- !u!1 &681521286728727015
 GameObject:
   m_ObjectHideFlags: 0
@@ -6580,7 +6580,7 @@ Transform:
   m_GameObject: {fileID: 1748545669747654846}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.5, y: 3, z: 0}
+  m_LocalPosition: {x: -4.5, y: 2.62, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -6903,7 +6903,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 400KM/H
+  m_text: 0.00m/s
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8136,7 +8136,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '1:00
+  m_text: '00:00
 
 '
   m_isRightToLeft: 0
@@ -9344,7 +9344,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spaceshipTransform: {fileID: 4490055516546391767}
-  prefab: {fileID: 0}
 --- !u!114 &1390491774285326180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9394,7 +9393,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6, y: 3.4300005}
+  m_AnchoredPosition: {x: 8.62, y: 3.4300005}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &4616076641428664156
@@ -9459,7 +9458,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1
+  m_text: 1:plane1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10310,7 +10309,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spaceshipTransform: {fileID: 4490055516546391767}
-  prefab: {fileID: 0}
 --- !u!1 &3658530253221974222
 GameObject:
   m_ObjectHideFlags: 0
@@ -10616,7 +10614,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spaceshipTransform: {fileID: 4490055516546391767}
-  prefab: {fileID: 0}
 --- !u!1 &3948366389532254482
 GameObject:
   m_ObjectHideFlags: 0
@@ -11558,6 +11555,8 @@ MonoBehaviour:
   speed: 40
   angularSpeed_x: 30
   angularSpeed_y: 20
+  reverseSpeed: 20
+  isReversing: 0
   filledSprite: {fileID: 21300000, guid: a924754360bb9be45ac7037d4cb28497, type: 3}
   emptySprite: {fileID: 21300000, guid: a751d049b09f9c94c87093674cdc2e12, type: 3}
   spriteRenderer:
@@ -11672,6 +11671,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planes: []
+  rankingText: 
+  rankingUIManager: {fileID: 0}
 --- !u!1 &4496633296992529653
 GameObject:
   m_ObjectHideFlags: 0
@@ -17813,7 +17814,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 082fc14a0cf5bc347a66e8355faa1113, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8f719dacee36a47409559cb570504b36, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -17821,7 +17822,7 @@ SpriteRenderer:
   m_Size: {x: 1.92, y: 1.92}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &6929235370372432380
@@ -17891,7 +17892,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spaceshipTransform: {fileID: 4490055516546391767}
-  prefab: {fileID: 0}
 --- !u!1 &6992954569244019172
 GameObject:
   m_ObjectHideFlags: 0
@@ -18663,8 +18663,8 @@ Transform:
   m_GameObject: {fileID: 8072017100328312676}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5, y: 3.54, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_LocalPosition: {x: 9.25, y: 3.54, z: 0}
+  m_LocalScale: {x: 0.46107998, y: 0.46107998, z: 0.46107998}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 3733480167491876724}
