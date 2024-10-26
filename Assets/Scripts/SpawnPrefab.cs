@@ -6,9 +6,9 @@ public class SpawnPrefabs : MonoBehaviour
     public GameObject[] obstaclePrefab;
     public GameObject energyOrbPrefab;
     public int spawnGap_Obstacle=100;//障碍生成间隔
-    public int spawnGap_EnergyOrb = 130;//能量球生成间隔
-    public int spawnCount_Obstacle=10;//障碍生成数量
-    public int spawnCount_EnergyOrb = 9;//能量球生成数量
+    public int spawnGap_EnergyOrb = 70;//能量球生成间隔
+    public int spawnCount_Obstacle=7;//障碍生成数量
+    public int spawnCount_EnergyOrb = 20;//能量球生成数量
     public int spawnRange = 60;//生成范围
 
     void Start()
