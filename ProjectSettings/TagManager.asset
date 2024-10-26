@@ -8,6 +8,8 @@ TagManager:
   - EnergyOrb
   - ResetButton
   - BackButton
+  - collision
+  - destination
   layers:
   - Default
   - TransparentFX
