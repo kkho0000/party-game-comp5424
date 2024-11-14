@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using TMPro;
+using System.Linq;
 
 public class RankingManager : MonoBehaviour
 {
@@ -11,6 +12,12 @@ public class RankingManager : MonoBehaviour
     private List<PlaneInfo> planeInfos = new List<PlaneInfo>();
     public RankingUIManager rankingUIManager;
 
+    private ulong localClientId; // 存储本地客户端ID
+
+    public void SetLocalClientId(ulong clientId)
+    {
+        localClientId = clientId; // 设置本地客户端ID
+    }
     public List<PlaneInfo> getPlanInfos()
     {
         return planeInfos; 
@@ -31,17 +38,35 @@ public class RankingManager : MonoBehaviour
         {
             PlaneInfo info = plane.GetPlaneInfo();
             planeInfos.Add(info);
+
         }
 
         Debug.Log("Plane Infos Count: " + planeInfos.Count); // 添加这一行
         // Sort the planeInfos list based on collisionCount and timer
         planeInfos.Sort(new RankingComparator());
 
+        PlaneInfo playerInfo = planeInfos.FirstOrDefault(p => p.clientId == localClientId); // 使用clientId查找
+
+        int playerRank = playerInfo != null ? planeInfos.IndexOf(playerInfo) + 1 : -1;
+
         rankingText = "Top";
         // Display the ranking
-        for (int i = 0; i < planeInfos.Count; i++)
+        /*for (int i = 0; i < planeInfos.Count; i++)
         {
             rankingText += (i + 1) + ":" + planeInfos[i].playerName + "\n";
+        }*/
+        /*planeInfos.Sort(new RankingComparator());*/
+
+        // 查找玩家的排名
+        //int playerRank = planeInfos.IndexOf(playerPlaneInfo) + 1; // 获取玩家的排名
+        // 根据玩家的排名生成文本
+        if (playerRank > 0)
+        {
+            rankingText = $"{playerRank} ";
+        }
+        else
+        {
+            rankingText = "2"; // 如果落后则为2
         }
         rankingUIManager.UpdateRankingText(rankingText);
     }

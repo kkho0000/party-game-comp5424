@@ -7,11 +7,19 @@ using UnityEngine.UI;
 public class JumptoPlay : MonoBehaviour
 {
     public Slider progressBar; // 进度条引用
+    private PersistentObject persistentObject;
 
+    private void Start()
+    {
+        persistentObject = FindObjectOfType<PersistentObject>();
+    }
     // 方法调用以加载新场景
     public void LoadScene(string sceneName)
     {
+        
         StartCoroutine(LoadSceneAsync(sceneName));
+        
+        
     }
 
 

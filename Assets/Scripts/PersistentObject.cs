@@ -1,3 +1,4 @@
+//using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class PersistentObject : MonoBehaviour
@@ -6,4 +7,6 @@ public class PersistentObject : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
     }
+
+    
 }

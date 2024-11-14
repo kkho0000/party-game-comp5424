@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/UI.unity
     guid: 4a3a5158445cfe249a749c54eedf9e1d
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/Scenes/online.unity
+    guid: 053401c8fded9fb4f91f2527aa874bbe
   - enabled: 1
     path: Assets/Scenes/EndGame.unity
     guid: c90211f93a647614697f9b9e450ff61b
