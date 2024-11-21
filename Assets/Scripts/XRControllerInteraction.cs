@@ -22,19 +22,19 @@ public class XRControllerInteraction : MonoBehaviour
 
     void Start()
     {
-        //Ê¹ÓÃÓÒÊÖÊÖ±úA¼ü ÊµÏÖ´«ËÍ
+        //Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Aï¿½ï¿½ Êµï¿½Ö´ï¿½ï¿½ï¿½
         teleport = testActionAsset.FindAction("Teleport");
         teleport.performed += Teleport;
 
-        //Ê¹ÓÃÓÒÊÖÊÖ±úB¼ü ÊµÏÖÈ¡Ïû´«ËÍ
+        //Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Bï¿½ï¿½ Êµï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         cancelTeleport = testActionAsset.FindAction("CancelTeleport");
         cancelTeleport.performed += CancelTeleport;
 
-        //Ê¹ÓÃ×óÊÖÊÖ±úX¼ü ÊµÏÖÖØÖÃ
+        //Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Xï¿½ï¿½ Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         movementReset = testActionAsset.FindAction("Reset");
         movementReset.performed += ResetSpaceship;
 
-        //Ê¹ÓÃ×óÊÖÊÖ±úY¼ü ÊµÏÖ¹Û²ìÄ£Ê½£¨½âËø£©
+        //Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Yï¿½ï¿½ Êµï¿½Ö¹Û²ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         observeMode = testActionAsset.FindAction("ObserveMode");
         observeMode.started += SwitchMode;
     }
@@ -42,12 +42,12 @@ public class XRControllerInteraction : MonoBehaviour
     /*
     private void StartReverse(InputAction.CallbackContext context)
     {
-        Debug.Log("Ö´ĞĞµ¹³µ");
+        Debug.Log("Ö´ï¿½Ğµï¿½ï¿½ï¿½");
         spaceCraftController.isReversing = true;
     }
     private void StopReverse(InputAction.CallbackContext context)
     {
-        Debug.Log("Í£Ö¹µ¹³µ");
+        Debug.Log("Í£Ö¹ï¿½ï¿½ï¿½ï¿½");
         spaceCraftController.isReversing = false;
     }
     */
@@ -69,6 +69,7 @@ public class XRControllerInteraction : MonoBehaviour
     private void SwitchMode(InputAction.CallbackContext context)
     {
         spaceCraftController.SwitchObservationMode();
+        // Debug.Log("è§‚å¯Ÿè€…æ¨¡å¼");
     }
 
    
