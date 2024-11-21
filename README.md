@@ -1,6 +1,4 @@
-## 扩展现实小组Party Game
-<p>先在本地把仓库Clone进去，然后用Unity Hub打开这个文件夹应该就能看到项目了。</p>
-<p>大家可以先创建一个自己的branch然后提交。<p>
+## XR Group Project
 
 <h3>操作说明：</h3>
 
@@ -18,18 +16,26 @@
 
 <h3>需要优化的部分功能</h3>	
 <ol>
-<li>主界面UI实现单机和联机的选择(秋秋)</li>
-<li>联机时的飞机名字随机生成(崔崔&亮晶晶)</li>
-<li>实现新手教程（必须）（奶茶）</li>
-<li>添加音效（必须）和主界面调整音量大小（奶茶）</li>
-<li>手柄换皮成小熊手手（可选）（暂时不做）</li>
-<li>飞船速度手动调整(夏夏&曾曾)</li>
-<li>轨道箭头方向（已解决 君德）</li>
-<li>SampleScene场景的Hierarchy结构可能需要重新部署一下（已解决）</li>
-<li>开场倒计时换成高清的&按钮文字修改&飞机建模修改（秋秋）</li>
-<li>飞机实体按钮交互（夏夏）</li>
-<li>平面材质缺失（已解决）</li>
+<li>主界面UI实现单机和联机的选择</li>
+<li>联机时的飞机名字随机生成</li>
+<li>实现新手教程（必须）</li>
+<li>添加音效（必须）和主界面调整音量大小</li>
+<li>手柄换皮成小熊手手（可选）</li>
+<li>飞船速度手动调整</li>
+<li>轨道箭头方向</li>
+<li>SampleScene场景的Hierarchy结构可能需要重新部署一下</li>
+<li>开场倒计时换成高清的</li>
 </ol>
+### 重构后的脚本：功能以及挂载
 
-
+| 脚本名称               | 实现功能                                                     | 挂载物体                     |
+| ---------------------- | ------------------------------------------------------------ | ---------------------------- |
+| Checkpoint Manager     | 实现飞机与检查点的交互；传递信息到本飞船的HUD实现游戏进程的可视化；传递信息到Match Manager实现飞船Rank的更新 | Game Map - CheckPoint        |
+| Collision Manager      | 实现飞机碰撞的检测，传递信息到碰撞脚本进行相关UI和功能的实时更新 | Space Craft                  |
+| Match Manager          | 控制整体游戏进程                                             | Match Manager                |
+| Orb Manager            | 实现能量球的逻辑，与Collision Manager和Orb UI进行通信        | Space Craft                  |
+| Orb UI                 | 接收Orb Manager传来的信息并实时更新能量块的UI                | Space Craft - Canvas Console |
+| Space Craft Controller | 实现飞船的基础移动                                           | Space Craft                  |
+|                        |                                                              |                              |
+|                        |                                                              |                              |
 
