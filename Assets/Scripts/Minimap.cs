@@ -27,8 +27,8 @@ public class MiniMapMarkerManager : MonoBehaviour
 
         // 将视口坐标转换为小地图坐标
         Vector2 miniMapPosition = new Vector2(
-            (viewportPosition.x - 0.5f) * miniMapSize.x * 2f,
-            (viewportPosition.y - 0.5f) * miniMapSize.y * 2f
+            (viewportPosition.x - 0.5f) * miniMapSize.x * 1.3f,
+            (viewportPosition.y - 0.5f) * miniMapSize.y * 1f
         );
 
         markerRectTransform.anchoredPosition = miniMapPosition;
