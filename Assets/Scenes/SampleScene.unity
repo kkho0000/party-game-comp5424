@@ -2781,6 +2781,18 @@ PrefabInstance:
       propertyPath: InScenePlacedSourceGlobalObjectIdHash
       value: 1636497242
       objectReference: {fileID: 0}
+    - target: {fileID: 112661373417795069, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
+      propertyPath: simulationSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 112661373417795069, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 112661373417795069, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.9411765
+      objectReference: {fileID: 0}
     - target: {fileID: 172360211709978412, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -2895,7 +2907,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6497647088429130530, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.68
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 6497647088429130530, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2903,7 +2915,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7456742046676688881, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
       propertyPath: teleportSpeed
-      value: 600
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 7456742046676688881, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
       propertyPath: teleportDistance
@@ -6653,7 +6665,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
