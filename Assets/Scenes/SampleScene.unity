@@ -2853,6 +2853,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -7.7
       objectReference: {fileID: 0}
+    - target: {fileID: 1348465884898972543, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
+      propertyPath: m_CameraYOffset
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3285808826946528785, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.43
@@ -2887,6 +2891,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5551858786423423410, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6497647088429130530, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 6497647088429130530, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
+      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7456742046676688881, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
@@ -6641,7 +6653,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

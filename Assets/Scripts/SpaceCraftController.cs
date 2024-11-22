@@ -90,7 +90,7 @@ public class SpaceCraftController : MonoBehaviour
         }
         else if (!teleportController.IsTeleporting())
         {
-            if (_orbManager.GetCurrentEnergy() != -1)
+            if (_orbManager.GetCurrentEnergy() == 3)
             {
                 _orbManager.clearEnergyOrb();
                 teleportController.StartTeleport();
