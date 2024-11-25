@@ -18,6 +18,9 @@ public class SpaceCraftController : MonoBehaviour
     private TeleportController teleportController; // 传送控制器
     private OrbManager _orbManager; // 能量球管理器
     private LockConsole _lockConsole; // 锁定控制台
+    private SpeedConsole _speedConsole; // speed console
+    private Vector3 lastPosition;
+    private float realSpeed;
 
     private void Awake()
     {
@@ -28,6 +31,7 @@ public class SpaceCraftController : MonoBehaviour
         teleportController = GetComponent<TeleportController>();
         _orbManager = GetComponent<OrbManager>();
         _lockConsole = GetComponentInChildren<LockConsole>();
+        _speedConsole = GetComponentInChildren<SpeedConsole>();
     }
 
     private void Start()
@@ -38,6 +42,7 @@ public class SpaceCraftController : MonoBehaviour
         rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
         rb.freezeRotation = true;
         StartCoroutine(DelayStart());
+        lastPosition = transform.position;
     }
 
     private IEnumerator DelayStart()
@@ -78,7 +83,17 @@ public class SpaceCraftController : MonoBehaviour
             {
                 teleportController.MoveTowardsTeleportTarget();
             }
-        }                  
+        }                   
+    }
+
+    void FixedUpdate() {
+        // real time speed
+        float distance = Vector3.Distance(transform.position, lastPosition);
+        // Calculate the speed (distance per second)
+        realSpeed = distance / Time.deltaTime;
+        // Update the last position
+        lastPosition = transform.position;
+        _speedConsole.UpdateConsole( (int)realSpeed );   
     }
 
     //手柄版传送
