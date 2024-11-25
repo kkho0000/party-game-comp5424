@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TeleportController : MonoBehaviour
 {
-    public float teleportDistance = 400.0f;
+    public float teleportDistance = 500.0f;
     public float teleportSpeed = 600.0f;
     public GameObject teleportMarkerPrefab;
     public ParticleSystem teleportParticleSystem;
@@ -22,6 +22,7 @@ public class TeleportController : MonoBehaviour
     public float shakeDuration = 0.8f;
     private float currentShakeDuration = 0f;
     public LayerMask obstacleLayer;  // 定义障碍物层，用于射线检测
+    private SpaceCraftController spacecraftController;
 
     private void Start()
     {
@@ -42,6 +43,8 @@ public class TeleportController : MonoBehaviour
         }
 
         obstacleLayer = LayerMask.GetMask("Obstacle");
+
+        spacecraftController = GetComponent<SpaceCraftController>();    
     }
 
     public void Initialize(Transform craftTransform)
@@ -106,11 +109,8 @@ public class TeleportController : MonoBehaviour
     {
         if (isTeleporting)
         {
-            craftTransform.position = Vector3.MoveTowards(craftTransform.position, teleportTarget, teleportSpeed * Time.deltaTime);
-
-            if (Vector3.Distance(craftTransform.position, teleportTarget) < 0.1f)
+            if (Vector3.Distance(craftTransform.position, teleportTarget) < 10f)
             {
-                isTeleporting = false;
                 ResetCameraPosition();
 
                 if (teleportParticleSystem != null)
@@ -121,7 +121,12 @@ public class TeleportController : MonoBehaviour
                 {
                     engineParticleSystem.Stop();
                 }
+                isTeleporting = false;
             }
+            //craftTransform.position = Vector3.MoveTowards(craftTransform.position, teleportTarget, teleportSpeed * Time.deltaTime);
+            Vector3 direction = (teleportTarget - craftTransform.position).normalized;
+            spacecraftController.SetVelocity(direction * teleportSpeed);
+            Debug.Log("执行传送");
         }
 
         if (currentShakeDuration > 0)

@@ -51,23 +51,34 @@ public class SpaceCraftController : MonoBehaviour
     {
         if (!isInObservationMode) // 如果不是观察模式，飞船的方向跟随摄像头
         {
-            Vector3 targetDirection = mainCamera.transform.forward;
-            Quaternion targetRotationXY = Quaternion.LookRotation(targetDirection, Vector3.up);
-            Quaternion zRotation = Quaternion.Euler(0, 0, 90);
-            Quaternion finalRotation = targetRotationXY * zRotation;
-            if (Math.Abs(targetDirection.x) >= 0.08 || Math.Abs(targetDirection.y) >= 0.08)
+            if (!teleportController.IsTeleporting())
             {
-                trans.rotation = Quaternion.RotateTowards(trans.rotation, finalRotation, angularSpeed * Time.deltaTime);
+                Vector3 targetDirection = mainCamera.transform.forward;
+                Quaternion targetRotationXY = Quaternion.LookRotation(targetDirection, Vector3.up);
+                Quaternion zRotation = Quaternion.Euler(0, 0, 90);
+                Quaternion finalRotation = targetRotationXY * zRotation;
+                if (Math.Abs(targetDirection.x) >= 0.08 || Math.Abs(targetDirection.y) >= 0.08)
+                {
+                    trans.rotation = Quaternion.RotateTowards(trans.rotation, finalRotation, angularSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    trans.rotation = trans.rotation;
+                }
+
+                // 使用Rigidbody的速度进行移动、
+                rb.velocity = trans.forward * speed;
+
+                if (teleportController.IsInTeleportMode())
+                {
+                    teleportController.UpdateTeleportMarkerPosition();
+                }
             }
             else
             {
-                trans.rotation = trans.rotation;
+                teleportController.MoveTowardsTeleportTarget();
             }
-        }
-        
-
-        // 使用Rigidbody的速度进行移动、
-        rb.velocity = trans.forward * speed;
+        }                  
     }
 
     //手柄版传送
@@ -81,17 +92,17 @@ public class SpaceCraftController : MonoBehaviour
         {
             if (_orbManager.GetCurrentEnergy() == 3)
             {
+                _orbManager.clearEnergyOrb();
                 teleportController.StartTeleport();
+                Debug.Log("执行传送");
             }
             else
             {
                 teleportController.CancelTeleport();
             }
-            _orbManager.clearEnergyOrb();
+            
         }
-        Debug.Log("执行传送");
-        teleportController.UpdateTeleportMarkerPosition();
-        teleportController.MoveTowardsTeleportTarget();
+        
     }
 
     //手柄版取消传送
@@ -116,6 +127,11 @@ public class SpaceCraftController : MonoBehaviour
     {
         rb.angularVelocity = Vector3.zero;
         Debug.Log("飞船自旋已停止");
+    }
+
+    public void SetVelocity(Vector3 velocity)
+    {
+        rb.velocity = velocity;
     }
 
 }
