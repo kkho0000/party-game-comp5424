@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.XR.Content.Interaction;
 
 public class SpaceCraftController : MonoBehaviour
 {
@@ -22,6 +23,13 @@ public class SpaceCraftController : MonoBehaviour
     private Vector3 lastPosition;
     private float realSpeed;
 
+    private XRJoystick _joystick; // 摇杆控制器
+    private float yawInput = 0f;
+    private float pitchInput = 0f;
+
+    private XRSlider _speedSlider; // 速度滑块控制器
+    private float baseSpeed = 40.0f; // 保存初始速度作为基准值
+
     private void Awake()
     {
         trans = GetComponent<Transform>();
@@ -32,6 +40,20 @@ public class SpaceCraftController : MonoBehaviour
         _orbManager = GetComponent<OrbManager>();
         _lockConsole = GetComponentInChildren<LockConsole>();
         _speedConsole = GetComponentInChildren<SpeedConsole>();
+
+        _speedSlider = GetComponentInChildren<XRSlider>();
+        if (_speedSlider != null)
+        {
+            baseSpeed = speed; // 保存初始速度
+            _speedSlider.onValueChange.AddListener(OnSpeedSliderChange);
+        }
+
+        _joystick = GetComponentInChildren<XRJoystick>();
+        if (_joystick != null)
+        {
+            _joystick.onValueChangeX.AddListener(OnJoystickYawChange);
+            _joystick.onValueChangeY.AddListener(OnJoystickPitchChange);
+        }
     }
 
     private void Start()
@@ -84,6 +106,38 @@ public class SpaceCraftController : MonoBehaviour
                 teleportController.MoveTowardsTeleportTarget();
             }
         }                   
+        else 
+        {
+            if (!teleportController.IsTeleporting())
+            {
+                // 计算飞船与初始方向的夹角
+                float angleWithInitial = Vector3.Angle(Vector3.forward, trans.forward);
+                
+                // 根据夹角决定是否需要反转俯仰输入
+                float adjustedPitchInput = angleWithInitial > 90f ? pitchInput : -pitchInput;
+                
+                // 计算每帧的旋转变化
+                float pitchDelta = adjustedPitchInput * angularSpeed * Time.deltaTime;
+                float yawDelta = yawInput * angularSpeed * Time.deltaTime;
+                
+                // 应用旋转，保持z轴旋转为90度
+                trans.Rotate(pitchDelta, yawDelta, 0f, Space.World);
+                Vector3 currentEuler = trans.rotation.eulerAngles;
+                trans.rotation = Quaternion.Euler(currentEuler.x, currentEuler.y, 90f);
+                
+                // 保持速度
+                rb.velocity = trans.forward * speed;
+
+                if (teleportController.IsInTeleportMode())
+                {
+                    teleportController.UpdateTeleportMarkerPosition();
+                }
+            }
+            else
+            {
+                teleportController.MoveTowardsTeleportTarget();
+            }
+        }
     }
 
     void FixedUpdate() {
@@ -109,7 +163,7 @@ public class SpaceCraftController : MonoBehaviour
             {
                 _orbManager.clearEnergyOrb();
                 teleportController.StartTeleport();
-                Debug.Log("执行传送");
+                // Debug.Log("执行传送");
             }
             else
             {
@@ -125,7 +179,7 @@ public class SpaceCraftController : MonoBehaviour
     {
         if (teleportController.IsInTeleportMode())
         {
-            Debug.Log("取消传送");
+            // Debug.Log("取消传送");
             teleportController.CancelTeleport();
         }
     }
@@ -141,12 +195,51 @@ public class SpaceCraftController : MonoBehaviour
     public void ResetSpaceship()
     {
         rb.angularVelocity = Vector3.zero;
-        Debug.Log("飞船自旋已停止");
+        // Debug.Log("飞船自旋已停止");
     }
 
     public void SetVelocity(Vector3 velocity)
     {
         rb.velocity = velocity;
+    }
+
+    private void OnJoystickYawChange(float value)
+    {
+        if (isInObservationMode)
+        {
+            yawInput = -value;
+            // Debug.Log($"Yaw输入: {value}");
+        }
+    }
+
+    private void OnJoystickPitchChange(float value)
+    {
+        if (isInObservationMode)
+        {
+            pitchInput = value;
+            // Debug.Log($"Pitch输入: {value}");
+        }
+    }
+
+    private void OnSpeedSliderChange(float value)
+    {
+        // value范围是0-1，我们将其映射到10%-100%的基准速度
+        speed = baseSpeed * (0.1f + 0.9f * value);
+        Debug.Log($"Speed changed to: {speed}");
+    }
+
+    private void OnDestroy()
+    {
+        if (_joystick != null)
+        {
+            _joystick.onValueChangeX.RemoveListener(OnJoystickYawChange);
+            _joystick.onValueChangeY.RemoveListener(OnJoystickPitchChange);
+        }
+
+        if (_speedSlider != null)
+        {
+            _speedSlider.onValueChange.RemoveListener(OnSpeedSliderChange);
+        }
     }
 
 }

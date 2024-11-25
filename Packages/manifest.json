@@ -22,7 +22,6 @@
     "com.unity.xr.interactionsubsystems": "2.0.0",
     "com.unity.xr.legacyinputhelpers": "2.1.11",
     "com.unity.xr.management": "4.4.1",
-    "com.unity.xr.mock-hmd": "1.4.0-preview.2",
     "com.unity.xr.oculus": "4.4.0",
     "com.unity.xr.openxr": "1.13.1",
     "com.valvesoftware.unity.openvr": "file:../Assets/SteamVR/OpenVRUnityXRPackage/Editor/com.valvesoftware.unity.openvr-1.2.1.tgz",
