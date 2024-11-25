@@ -2781,6 +2781,18 @@ PrefabInstance:
       propertyPath: InScenePlacedSourceGlobalObjectIdHash
       value: 1636497242
       objectReference: {fileID: 0}
+    - target: {fileID: 112661373417795069, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
+      propertyPath: simulationSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 112661373417795069, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 112661373417795069, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.9411765
+      objectReference: {fileID: 0}
     - target: {fileID: 172360211709978412, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -2861,6 +2873,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -7.7
       objectReference: {fileID: 0}
+    - target: {fileID: 1348465884898972543, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
+      propertyPath: m_CameraYOffset
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3285808826946528785, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.43
@@ -2896,6 +2912,26 @@ PrefabInstance:
     - target: {fileID: 5551858786423423410, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6497647088429130530, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6497647088429130530, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456742046676688881, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
+      propertyPath: teleportSpeed
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456742046676688881, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
+      propertyPath: teleportDistance
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456742046676688881, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
+      propertyPath: obstacleLayer.m_Bits
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 8263305830557768401, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2940,6 +2976,10 @@ PrefabInstance:
     - target: {fileID: 8620083598589472689, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
       propertyPath: m_Name
       value: SpaceCraft
+      objectReference: {fileID: 0}
+    - target: {fileID: 9033926707128665151, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
+      propertyPath: speed
+      value: 140
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
