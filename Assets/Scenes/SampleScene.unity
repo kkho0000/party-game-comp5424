@@ -2809,6 +2809,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1203823039660981337, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
+      propertyPath: m_text
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1348465884898972543, guid: 9f743b56bf823ae4b8d984bb3f434fb5, type: 3}
       propertyPath: m_CameraYOffset
       value: 0
@@ -6635,7 +6639,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

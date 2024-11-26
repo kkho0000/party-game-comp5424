@@ -76,6 +76,14 @@ public class SpaceCraftController : MonoBehaviour
 
     void Update()
     {
+        // real time speed
+        float distance = Vector3.Distance(transform.position, lastPosition);
+        // Calculate the speed (distance per second)
+        realSpeed = distance / Time.deltaTime;
+        // Update the last position
+        lastPosition = transform.position;
+        _speedConsole.UpdateConsole( (int)realSpeed );   
+        
         if (!isInObservationMode) // 如果不是观察模式，飞船的方向跟随摄像头
         {
             if (!teleportController.IsTeleporting())
@@ -141,13 +149,7 @@ public class SpaceCraftController : MonoBehaviour
     }
 
     void FixedUpdate() {
-        // real time speed
-        float distance = Vector3.Distance(transform.position, lastPosition);
-        // Calculate the speed (distance per second)
-        realSpeed = distance / Time.deltaTime;
-        // Update the last position
-        lastPosition = transform.position;
-        _speedConsole.UpdateConsole( (int)realSpeed );   
+        
     }
 
     //手柄版传送
