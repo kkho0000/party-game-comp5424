@@ -126,7 +126,7 @@ public class TeleportController : MonoBehaviour
             //craftTransform.position = Vector3.MoveTowards(craftTransform.position, teleportTarget, teleportSpeed * Time.deltaTime);
             Vector3 direction = (teleportTarget - craftTransform.position).normalized;
             spacecraftController.SetVelocity(direction * teleportSpeed);
-            Debug.Log("执行传送");
+            // Debug.Log("执行传送");
         }
 
         if (currentShakeDuration > 0)

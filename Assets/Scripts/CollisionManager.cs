@@ -37,7 +37,7 @@ public class CollisionManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("collision"))
+        if (false) // (other.CompareTag("collision"))
         {
             _checkpointManager.updateCheckpoint(Convert.ToInt32(other.gameObject.name));
             // Debug.Log("Collision detected");
